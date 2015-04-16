@@ -1,4 +1,4 @@
-package com.github.jdummy.util;
+package io.github.aggumati.util;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

@@ -1,6 +1,6 @@
-package com.github.jdummy;
+package io.github.aggumati.jdummy;
 
-import com.github.jdummy.model.TestModel;
+import io.github.aggumati.jdummy.model.TestModel;
 
 public class Main {
 	public static void main(String[] args) {

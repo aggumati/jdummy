@@ -1,4 +1,4 @@
-package com.github.jdummy.util;
+package io.github.aggumati.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

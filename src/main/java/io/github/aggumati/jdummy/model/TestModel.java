@@ -1,15 +1,15 @@
-package com.github.jdummy.model;
+package io.github.aggumati.jdummy.model;
+
+import io.github.aggumati.jdummy.config.DummyAddress;
+import io.github.aggumati.jdummy.config.DummyCity;
+import io.github.aggumati.jdummy.config.DummyDate;
+import io.github.aggumati.jdummy.config.DummyFirstName;
+import io.github.aggumati.jdummy.config.DummyFullName;
+import io.github.aggumati.jdummy.config.DummyLastName;
+import io.github.aggumati.jdummy.config.DummyLongAddress;
+import io.github.aggumati.jdummy.config.DummyNumber;
 
 import java.util.Date;
-
-import com.github.jdummy.config.DummyAddress;
-import com.github.jdummy.config.DummyCity;
-import com.github.jdummy.config.DummyDate;
-import com.github.jdummy.config.DummyFirstName;
-import com.github.jdummy.config.DummyFullName;
-import com.github.jdummy.config.DummyLastName;
-import com.github.jdummy.config.DummyLongAddress;
-import com.github.jdummy.config.DummyNumber;
 
 public class TestModel {
 	@DummyFullName

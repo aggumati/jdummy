@@ -1,4 +1,16 @@
-package com.github.jdummy;
+package io.github.aggumati.jdummy;
+
+import io.github.aggumati.jdummy.config.DummyAddress;
+import io.github.aggumati.jdummy.config.DummyBusinessName;
+import io.github.aggumati.jdummy.config.DummyCity;
+import io.github.aggumati.jdummy.config.DummyDate;
+import io.github.aggumati.jdummy.config.DummyFirstName;
+import io.github.aggumati.jdummy.config.DummyFullName;
+import io.github.aggumati.jdummy.config.DummyIgnore;
+import io.github.aggumati.jdummy.config.DummyLastName;
+import io.github.aggumati.jdummy.config.DummyLongAddress;
+import io.github.aggumati.jdummy.config.DummyNumber;
+import io.github.aggumati.util.StringUtil;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -7,18 +19,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.fluttercode.datafactory.impl.DataFactory;
-
-import com.github.jdummy.config.DummyAddress;
-import com.github.jdummy.config.DummyBusinessName;
-import com.github.jdummy.config.DummyCity;
-import com.github.jdummy.config.DummyDate;
-import com.github.jdummy.config.DummyFirstName;
-import com.github.jdummy.config.DummyFullName;
-import com.github.jdummy.config.DummyIgnore;
-import com.github.jdummy.config.DummyLastName;
-import com.github.jdummy.config.DummyLongAddress;
-import com.github.jdummy.config.DummyNumber;
-import com.github.jdummy.util.StringUtil;
 
 public class Dummy<T extends Object> {
 	
@@ -50,7 +50,7 @@ public class Dummy<T extends Object> {
 			
 			for (int idx = 0; idx < allFields.length; idx++) {
 				Field fieldTmp = allFields[idx];
-				if (!fieldTmp.isAnnotationPresent(DummyIgnore.class)) {
+				if (!fieldTmp.isAnnotationPresent(DummyIgnore.class) && !fieldTmp.getType().isInterface() && !fieldTmp.getType().isEnum()) {
 					String methodName = "set"+StringUtil.capitalizeFirst(fieldTmp.getName());
 					if (fieldTmp.isAnnotationPresent(DummyFullName.class)) {
 						cls.getMethod(methodName, fieldTmp.getType()).invoke(t, dataFactory.getName());
@@ -70,7 +70,7 @@ public class Dummy<T extends Object> {
 						cls.getMethod(methodName, fieldTmp.getType()).invoke(t, new Integer(dataFactory.getNumberText(5)));
 					} else if (fieldTmp.isAnnotationPresent(DummyDate.class)) {
 						cls.getMethod(methodName, fieldTmp.getType()).invoke(t, dataFactory.getDate(new Date(), 1, 31));
-					}
+					} 
 				}
 			}
 			return t;
@@ -90,5 +90,9 @@ public class Dummy<T extends Object> {
 		
 		
 		return null;
+	}
+	
+	private void generate(Field fieldTmp) {
+		
 	}
 }
