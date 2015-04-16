@@ -23,25 +23,27 @@ import org.fluttercode.datafactory.impl.DataFactory;
 public class Dummy<T extends Object> {
 	
 	private Class<T> clazz;
+	private DataFactory dataFactory; 
+	
+	private final int NO_OF_LIST = 20;
 	
 	public Dummy (Class<T> clazz) {
 		this.clazz = clazz;
+		this.dataFactory = new DataFactory(); 
 	}
 	
-	public List<T> generateList() {
-		return generateList( 20);
+	public List<T> generateList() throws Exception {
+		return generateList(NO_OF_LIST);
 	}
 	
-	public List<T> generateList(int rows) {
+	public List<T> generateList(int rows) throws Exception {
 		List<T> result = new ArrayList<T>();
 		for(int i = 0; i<rows; i++)
 			result.add(generateObject());
 		return result;
 	}
 	
-	public T generateObject() {
-		DataFactory dataFactory = new DataFactory(); 
-		
+	public T generateObject() throws Exception {
 		try {
 			T t = clazz.newInstance();
 			Class<?> cls = t.getClass();
@@ -70,7 +72,18 @@ public class Dummy<T extends Object> {
 						cls.getMethod(methodName, fieldTmp.getType()).invoke(t, new Integer(dataFactory.getNumberText(5)));
 					} else if (fieldTmp.isAnnotationPresent(DummyDate.class)) {
 						cls.getMethod(methodName, fieldTmp.getType()).invoke(t, dataFactory.getDate(new Date(), 1, 31));
-					} 
+					} else {
+						// generate by return type
+						if (fieldTmp.getType().equals(String.class)) {
+							cls.getMethod(methodName, fieldTmp.getType()).invoke(t, dataFactory.getRandomText(10));
+						} else if (fieldTmp.getType().equals(Integer.class)) {
+							cls.getMethod(methodName, fieldTmp.getType()).invoke(t, new Integer(dataFactory.getNumberText(5)));
+						} else if (fieldTmp.getType().equals(Date.class)) {
+							cls.getMethod(methodName, fieldTmp.getType()).invoke(t, dataFactory.getDate(new Date(), 1, 31));
+						} else {
+							throw new Exception("Type of field doesn't support generating dummy");
+						}
+					}
 				}
 			}
 			return t;
@@ -87,12 +100,6 @@ public class Dummy<T extends Object> {
 		} catch (InvocationTargetException e) {
 			e.printStackTrace();
 		}
-		
-		
 		return null;
-	}
-	
-	private void generate(Field fieldTmp) {
-		
 	}
 }
