@@ -20,32 +20,32 @@ import java.util.List;
 
 import org.fluttercode.datafactory.impl.DataFactory;
 
-public class Dummy<T extends Object> {
+public class Dummy {
 	
-	private Class<T> clazz;
+	private Class<?> clazz;
 	private DataFactory dataFactory; 
 	
 	private final int NO_OF_LIST = 20;
 	
-	public Dummy (Class<T> clazz) {
+	public Dummy (Class<?> clazz) {
 		this.clazz = clazz;
 		this.dataFactory = new DataFactory(); 
 	}
 	
-	public List<T> generateList() throws Exception {
+	public List<?> generateList() throws Exception {
 		return generateList(NO_OF_LIST);
 	}
 	
-	public List<T> generateList(int rows) throws Exception {
-		List<T> result = new ArrayList<T>();
+	public List generateList(int rows) throws Exception {
+		List result = new ArrayList();
 		for(int i = 0; i<rows; i++)
 			result.add(generateObject());
 		return result;
 	}
 	
-	public T generateObject() throws Exception {
+	public Object generateObject() throws Exception {
 		try {
-			T t = clazz.newInstance();
+			Object t = clazz.newInstance();
 			Class<?> cls = t.getClass();
 			
 			Field[] allFields = cls.getDeclaredFields();
