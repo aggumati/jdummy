@@ -27,9 +27,8 @@ What we need ?
 How To Use ? 
 ```
 public static void main(String[] args) {
-	Dummy<TestModel> test = new Dummy<TestModel>(TestModel.class);
 	try {
-		System.out.println(test.generateList());
+		System.out.println((new Dummy(TestModelBlank.class)).generateList());
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
